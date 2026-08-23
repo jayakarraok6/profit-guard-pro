@@ -2,6 +2,20 @@
 @source "../src";
 @import "tw-animate-css";
 
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --shadow-card: 0 1px 2px oklch(0.2 0.03 250 / 0.06), 0 8px 24px -12px oklch(0.2 0.03 250 / 0.14);
+  --shadow-lift: 0 2px 4px oklch(0.2 0.03 250 / 0.06), 0 18px 40px -18px oklch(0.2 0.03 250 / 0.22);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -62,15 +76,23 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.75rem;
+  --background: oklch(0.988 0.003 250);
+  --foreground: oklch(0.19 0.03 258);
+  --success: oklch(0.58 0.14 155);
+  --success-foreground: oklch(0.99 0 0);
+  --success-soft: oklch(0.96 0.04 158);
+  --warning: oklch(0.72 0.15 70);
+  --warning-soft: oklch(0.96 0.05 85);
+  --brand: oklch(0.48 0.17 262);
+  --brand-foreground: oklch(0.99 0 0);
+  --brand-soft: oklch(0.96 0.03 262);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.24 0.035 260);
+  --primary-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -140,5 +162,6 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
   }
 }
