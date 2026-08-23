@@ -410,3 +410,14 @@ function Signal({
     </div>
   );
 }
+
+function Metric({ label, value, tone }: { label: string; value: string; tone?: "success" }) {
+  return (
+    <div className="rounded-lg border border-border bg-card px-3 py-2">
+      <p className="truncate text-[11px] text-muted-foreground">{label}</p>
+      <p className={cn("truncate text-sm font-bold tabular-nums", tone === "success" && "text-success")}>
+        {value}
+      </p>
+    </div>
+  );
+}
