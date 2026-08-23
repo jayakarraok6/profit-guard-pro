@@ -24,7 +24,7 @@ export interface ActionOption {
   expectedProfit: number;
   gainVsNothing: number;
   allowed: boolean;
-  blockedReason?: string;
+  blockedReason?: string | undefined;
 }
 
 export interface Decision {
@@ -100,7 +100,7 @@ export function decide(c: CheckoutInput): Decision {
     };
   });
 
-  const doNothing = options[0];
+  const doNothing = options[0]!;
   if (options.some((o) => !o.allowed)) {
     guardrails.push("Offers costing more than 50% of estimated margin are blocked.");
   }
@@ -129,8 +129,7 @@ export function decide(c: CheckoutInput): Decision {
   } else {
     const best = viable.reduce((a, b) => (b.expectedProfit > a.expectedProfit ? b : a));
     // prefer the smallest useful intervention within 5% of the best expected profit
-    chosen =
-      viable.find((o) => o.expectedProfit >= best.expectedProfit * 0.95) ?? best;
+    chosen = viable.find((o) => o.expectedProfit >= best.expectedProfit * 0.95) ?? best;
     if (chosen.cost === 0) {
       reason = `A free reminder lifts recovery from ${Math.round(base * 100)}% to ${Math.round(chosen.finalProb * 100)}% at no cost, so there is no reason to pay for a discount here.`;
     } else {
