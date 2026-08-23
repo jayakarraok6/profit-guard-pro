@@ -402,7 +402,7 @@ function Signal({
 }) {
   return (
     <div className="min-w-0 rounded-lg bg-muted/60 px-2.5 py-2">
-      <p className="flex items-center gap-1 truncate text-[11px] text-muted-foreground">
+      <p className="flex flex-wrap items-center gap-x-1 text-[11px] leading-tight text-muted-foreground">
         <Icon className="h-3 w-3 shrink-0" /> {label}
         {hint && <span className="text-[10px] italic opacity-70">({hint})</span>}
       </p>
