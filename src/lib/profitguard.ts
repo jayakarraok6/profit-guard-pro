@@ -247,7 +247,7 @@ export const CHECKOUTS: CheckoutInput[] = [
     previous_discount_used: false,
     time_spent_seconds: 268,
     estimated_margin_pct: 46,
-    payment_status: "abandoned_at_gateway",
+    payment_status: "not_attempted",
     allowed_offers_inr: [100, 250],
     previous_recovery_attempts: 0,
     previous_recovery_succeeded: false,
