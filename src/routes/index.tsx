@@ -49,7 +49,7 @@ function shortReasons(c: CheckoutInput, a: ActionOption): string[] {
   else if (c.checkout_stage === "address") out.push("They filled in their address, so this was a real attempt to buy.");
   else out.push("They left early, at the cart — intent here is still uncertain.");
 
-  if (c.payment_status === "failed") out.push(`The payment itself failed (${c.payment_failure_reason ?? "declined"}).`);
+  if (c.payment_status === "failed") out.push(`The payment itself failed (${c.payment_failure_reason ?? "declined"}), so nothing about the price was the problem.`);
   else if (c.previous_orders >= 4) out.push(`They have bought from you ${c.previous_orders} times before.`);
   else if (c.time_spent_seconds > 240) out.push("They spent several minutes here, which usually means genuine interest.");
   else if (c.time_spent_seconds < 60) out.push("They spent less than a minute here, so this may have been casual browsing.");
@@ -58,10 +58,13 @@ function shortReasons(c: CheckoutInput, a: ActionOption): string[] {
     out.push(
       `${c.previous_recovery_attempts} earlier recovery attempt${c.previous_recovery_attempts > 1 ? "s" : ""} on this checkout did not convert.`,
     );
-  else if (a.kind === "offer") out.push("Small incentives have worked on this kind of shopper before.");
+  else if (c.hours_since_abandoned <= 12)
+    out.push(`They left only ${Math.round(c.hours_since_abandoned)} hour${Math.round(c.hours_since_abandoned) === 1 ? "" : "s"} ago, so the cart is still fresh.`);
+  else out.push(`It has been about ${Math.round(c.hours_since_abandoned)} hours, so this checkout is going cold.`);
 
   return out.slice(0, 3);
 }
+
 
 function customerMessage(c: CheckoutInput, a: ActionOption) {
   if (a.kind === "retry")
