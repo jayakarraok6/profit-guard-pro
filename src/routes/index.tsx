@@ -340,8 +340,9 @@ function ProfitGuard() {
           <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
             Every recommendation is calculated live by a transparent, rule-based economic engine from
             the checkout situation only — cart value, checkout stage, payment status, time since
+            abandonment, past orders, prior recovery attempts and merchant-approved offers. No
+            predictive model, no real payment or customer data — synthetic demo data only.
 
-            recovery attempts. Synthetic demo signals only; no real payment or customer data.
           </p>
         </div>
       </section>
