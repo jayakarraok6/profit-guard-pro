@@ -43,7 +43,7 @@ function ActionIcon({ kind, className }: { kind: ActionOption["kind"]; className
   return <Bell className={className} />;
 }
 
-function shortReasons(c: CheckoutInput, a: ActionOption): string[] {
+function shortReasons(c: CheckoutInput): string[] {
   const out: string[] = [];
   if (c.checkout_stage === "payment") out.push("They reached the payment step, so they were close to buying.");
   else if (c.checkout_stage === "address") out.push("They filled in their address, so this was a real attempt to buy.");
@@ -84,7 +84,7 @@ function ProfitGuard() {
   const decision = useMemo(() => decide(selected), [selected]);
   const status: Status = statuses[selectedId] ?? "pending";
   const action = decision.action;
-  const reasons = shortReasons(selected, action);
+  const reasons = shortReasons(selected);
   const isNone = action.kind === "none";
 
   const setStatus = (s: Status) => setStatuses((prev) => ({ ...prev, [selectedId]: s }));
