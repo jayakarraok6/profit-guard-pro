@@ -49,9 +49,11 @@ type Status = "pending" | "approved" | "ignored";
 function ProfitGuard() {
   const [selectedId, setSelectedId] = useState(CHECKOUTS[0]!.customer_id);
   const [statuses, setStatuses] = useState<Record<string, Status>>({});
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const isResolved = (id: string) => statuses[id] === "approved" || statuses[id] === "ignored";
   const activeCheckouts = CHECKOUTS.filter((c) => !isResolved(c.customer_id));
+  const resolvedCheckouts = CHECKOUTS.filter((c) => isResolved(c.customer_id));
 
   const selected = CHECKOUTS.find((c) => c.customer_id === selectedId)!;
   const decision = useMemo(() => decide(selected), [selected]);
@@ -60,6 +62,9 @@ function ProfitGuard() {
   const reasons = shortReasons(selected);
   const isNone = action.kind === "none";
   const setStatus = (s: Status) => setStatuses((prev) => ({ ...prev, [selectedId]: s }));
+  const actionLabel = (a: ActionOption) => a.kind === "retry" ? "Payment retry" : a.kind === "offer" ? `${inr(a.cost)} offer` : a.kind === "reminder" ? "Reminder" : "No action";
+
+
 
 
   return (
