@@ -49,6 +49,10 @@ type Status = "pending" | "approved" | "ignored";
 function ProfitGuard() {
   const [selectedId, setSelectedId] = useState(CHECKOUTS[0]!.customer_id);
   const [statuses, setStatuses] = useState<Record<string, Status>>({});
+
+  const isResolved = (id: string) => statuses[id] === "approved" || statuses[id] === "ignored";
+  const activeCheckouts = CHECKOUTS.filter((c) => !isResolved(c.customer_id));
+
   const selected = CHECKOUTS.find((c) => c.customer_id === selectedId)!;
   const decision = useMemo(() => decide(selected), [selected]);
   const status: Status = statuses[selectedId] ?? "pending";
@@ -56,6 +60,7 @@ function ProfitGuard() {
   const reasons = shortReasons(selected);
   const isNone = action.kind === "none";
   const setStatus = (s: Status) => setStatuses((prev) => ({ ...prev, [selectedId]: s }));
+
 
   return (
     <main className="min-h-screen bg-background">
