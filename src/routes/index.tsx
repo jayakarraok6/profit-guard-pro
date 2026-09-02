@@ -125,13 +125,15 @@ function ProfitGuard() {
 
   const undo = () => setRecords((prev) => { const n = { ...prev }; delete n[selectedId]; return n; });
 
+  const resolvedCount = history.filter((r) => r.outcome === "recovered" || r.outcome === "not_recovered").length;
+
   const metrics = [
-    { label: "CUSTOMERS ANALYZED", value: String(CHECKOUTS.length) },
+    { label: "CUSTOMERS IN QUEUE", value: String(activeCheckouts.length) },
     { label: "REVENUE AT RISK", value: inr(revenueAtRisk) },
     { label: "REVENUE RECOVERED (DEMO)", value: inr(recoveredValue) },
     { label: "RECOVERY RATE", value: pct(recoveryRate) },
     { label: "APPROVED ACTIONS", value: String(approvedCount) },
-    { label: "UNRESOLVED", value: String(unresolvedCount) },
+    { label: "RESOLVED", value: String(resolvedCount) },
   ];
 
   return (
